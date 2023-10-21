@@ -92,7 +92,10 @@ function getStudentsByName() {
     const msg = 
       `<div class="warning">
         <img class="warning-icon" src="./assets/img/warning.svg" alt="warning icon">
-        <p class="warning-msg">No matches found!</p>
+        <div class="warning-content">
+          <p class="warning-title">Oops!</p>
+          <p class="warning-msg">No matches found</p>
+        </div>
       </div>`;
     if (!showNoMatch) {
       document.querySelector(".header").insertAdjacentHTML("afterend", msg);
