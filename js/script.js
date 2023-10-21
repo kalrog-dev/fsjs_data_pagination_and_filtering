@@ -6,6 +6,7 @@ FSJS Project 2 - Data Pagination and Filtering
 // Global variables
 const itemsPerPage = 9;
 const linkList = document.querySelector(".link-list");
+let showNoMatch = false;
 let filteredList;
 
 // Build html to inject and display 9 student cards per page
@@ -86,9 +87,23 @@ function getStudentsByName() {
   });
   showPageAndPagination(filteredList);
 
-  // No matches found
+  // If no matches found, display a warning message
   if (filteredList.length === 0) {
-    // document.querySelector(".student-list").insertAdjacentHTML("beforeend", `<p>${msg}</p>`);
+    const msg = 
+      `<div class="warning">
+        <img class="warning-icon" src="./img/warning.svg" alt="warning icon">
+        <p class="warning-msg">No matches found!</p>
+      </div>`;
+    if (!showNoMatch) {
+      document.querySelector(".header").insertAdjacentHTML("afterend", msg);
+      showNoMatch = true;
+    }
+  } 
+  // If matches found, remove the warning
+  else if (showNoMatch) {
+    const warning = document.querySelector(".warning");
+    warning.remove();
+    showNoMatch = false;
   }
 }
 
