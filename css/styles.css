@@ -186,14 +186,19 @@ header h2 {
 }
 
 .warning {
-  display: block;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1em;
   width: min(450px, 100%);
-  margin: 8em auto 0;
-  padding: 1.5em 3.2em 2em;
+  margin-top: 4em;
+  padding: 1em 2em;
+  font-size: 1.25rem;
   text-align: center;
-  animation: warning-show 0.85s;
+  animation: warning-show 0.5s;
   color: hsl(218 17% 35% / 0.9);
   background-color: hsl(0 100% 100% / 0.75);
+  border-left: 10px solid hsl(0 50% 50% / 0.85);
   border-radius: 8px;
   box-shadow: 2px 2px 10px hsl(0 0% 0% / 0.05);
 }
@@ -211,12 +216,7 @@ header h2 {
 }
 
 .warning-icon {
-  width: 40px;
-  margin-bottom: 0.5em;
-}
-
-.warning-msg {
-  font-size: 1.5rem;
+  width: 30px;
 }
 
 @media screen and (min-width: 700px) {
