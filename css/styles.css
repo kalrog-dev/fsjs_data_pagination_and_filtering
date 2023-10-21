@@ -195,7 +195,7 @@ header h2 {
   padding: 1em 2em;
   font-size: 1.25rem;
   text-align: center;
-  animation: warning-show 0.5s;
+  animation: warning-show 0.4s;
   color: hsl(218 17% 35% / 0.9);
   background-color: hsl(0 100% 100% / 0.75);
   border-left: 10px solid hsl(0 50% 50% / 0.85);
