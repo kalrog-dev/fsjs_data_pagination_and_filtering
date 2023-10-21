@@ -1,6 +1,28 @@
 /* New FSJS project 2 - List Pagination and Filter - v2 - Data version */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;800&display=swap');
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 200;
+  src: url("../assets/fonts/Montserrat-ExtraLight.ttf");
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 400;
+  src: url("../assets/fonts/Montserrat-Regular.ttf");
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 600;
+  src: url("../assets/fonts/Montserrat-SemiBold.ttf");
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 800;
+  src: url("../assets/fonts/Montserrat-ExtraBold.ttf");
+}
 
 * {
 	box-sizing: border-box;

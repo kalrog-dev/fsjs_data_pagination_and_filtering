@@ -71,7 +71,7 @@ const htmlSearch =
   `<label for="search" class="student-search">
     <span>Search by name</span>
     <input id="search" placeholder="Search by name...">
-    <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
+    <button type="button"><img src="./assets/img/icn-search.svg" alt="Search icon"></button>
   </label>`;
 const header = document.querySelector(".header");
 header.insertAdjacentHTML("beforeend", htmlSearch);
@@ -91,7 +91,7 @@ function getStudentsByName() {
   if (filteredList.length === 0) {
     const msg = 
       `<div class="warning">
-        <img class="warning-icon" src="./img/warning.svg" alt="warning icon">
+        <img class="warning-icon" src="./assets/img/warning.svg" alt="warning icon">
         <p class="warning-msg">No matches found!</p>
       </div>`;
     if (!showNoMatch) {
