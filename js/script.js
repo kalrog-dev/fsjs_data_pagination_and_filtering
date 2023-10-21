@@ -5,20 +5,20 @@ FSJS Project 2 - Data Pagination and Filtering
 
 // Global variables
 const itemsPerPage = 9;
-const studentList = document.querySelector(".student-list");
 const linkList = document.querySelector(".link-list");
 
-// Create and insert/append the elements needed to display a "page" of nine students
+// Build html to inject and display 9 student cards per page
 function showPage(list, page) {
   const firstIndex = (page * itemsPerPage) - itemsPerPage;
   const lastIndex = (page * itemsPerPage) - 1;
+  const studentList = document.querySelector(".student-list");
   studentList.innerHTML = "";
   let html = "";
   
-  list.forEach((student, index, array) => {
+  list.forEach((student, index) => {
     if (index >= firstIndex && index <= lastIndex) {
-      html += `
-        <li class="student-item cf">
+      html += 
+        `<li class="student-item cf">
           <div class="student-details">
             <img class="avatar" src=${student.picture.large} alt="Profile Picture">
             <h3>${student.name.first} ${student.name.last}</h3>
@@ -27,24 +27,19 @@ function showPage(list, page) {
           <div class="joined-details">
             <span class="date">Joined ${student.registered.date}</span>
           </div>
-        </li>
-      `
+        </li>`
     }
   });
   studentList.innerHTML = html;
 }
 
-// This function will create and insert/append the elements needed for the pagination buttons
+// Build html to inject and display pagination buttons
 function addPagination(list) {
   const numberOfPages = Math.ceil( list.length / itemsPerPage );
   linkList.innerHTML = "";
   let html = "";
   for (let i = 1; i <= numberOfPages; i++) {
-    html += `
-      <li>
-        <button type="button">${i}</button>
-      </li>
-    `
+    html += `<li><button type="button">${i}</button></li>`
   }
   linkList.innerHTML = html;
   const firstBtn = document.querySelector(".pagination button");
