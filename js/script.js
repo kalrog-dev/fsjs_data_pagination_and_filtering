@@ -72,7 +72,7 @@ linkList.addEventListener("click", (event) => {
           <img class="warning-icon" src="./assets/img/warning.svg" alt="warning icon">
           <div class="warning-content">
             <p class="warning-title">Oops!</p>
-            <p class="warning-body small">Button nodes not found.</p>
+            <p class="warning-body small">Button nodes not found</p>
           </div>
           <button class="warning-close">&#x2715</button>
         </div>
