@@ -115,3 +115,10 @@ function showPageAndPagination(list) {
   showPage(list, 1);
   addPagination(list);
 }
+
+// Search field auto-focus on load
+setTimeout(searchFocus, 1600);
+function searchFocus() {
+  searchField.focus();
+  document.querySelector(".student-search").classList.add("js-focus-anim");
+}
