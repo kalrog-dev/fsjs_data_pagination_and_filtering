@@ -68,13 +68,13 @@ linkList.addEventListener("click", (event) => {
     const misclick = document.querySelector(".misclick");
     const misclickHtml = `
       <div class="misclick-container">
-        <div class="misclick warning long">
-          <img class="warning-icon" src="./assets/img/warning.svg" alt="warning icon">
-          <div class="warning-content">
-            <p class="warning-title">Oops!</p>
-            <p class="warning-body small">Button nodes not found</p>
+        <div class="misclick info">
+          <img class="info-icon" src="./assets/img/info.svg" alt="info icon">
+          <div class="info-content">
+            <p class="info-title">Info</p>
+            <p class="info-body">Button nodes not found</p>
           </div>
-          <button class="warning-close">&#x2715</button>
+          <button class="info-close">&#x2715</button>
         </div>
         <div class="backdrop"></div>
       </div>
@@ -82,14 +82,14 @@ linkList.addEventListener("click", (event) => {
     if (!misclick) {
       document.body.insertAdjacentHTML("beforeend", misclickHtml);
 
-      // Backdrop click listener to close a warning without clicking the warning
+      // Backdrop click listener to close an info without clicking the info
       const backdrop = document.querySelector(".backdrop");
       backdrop.addEventListener("click", (event) => {
         document.querySelector(".misclick-container").remove();
       });
 
-      // Warning close button listener
-      const closeBtn = document.querySelector(".warning-close");
+      // Info close button listener
+      const closeBtn = document.querySelector(".info-close");
       closeBtn.addEventListener("click", (event) => {
         document.querySelector(".misclick-container").remove();
       });
@@ -131,10 +131,18 @@ function getStudentsByName() {
           <p class="warning-title">Oops!</p>
           <p class="warning-msg">No matches found</p>
         </div>
+        <button class="warning-close">&#x2715</button>
       </div>`;
     if (!showNoMatch) {
       document.querySelector(".header").insertAdjacentHTML("afterend", msg);
       showNoMatch = true;
+
+      // Warning close button listener
+      const closeBtn = document.querySelector(".warning-close");
+      closeBtn.addEventListener("click", (event) => {
+        document.querySelector(".warning").remove();
+        showNoMatch = false;
+      });
     }
   } 
   // If matches found, remove the warning
