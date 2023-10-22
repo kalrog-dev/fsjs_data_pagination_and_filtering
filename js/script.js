@@ -63,6 +63,41 @@ linkList.addEventListener("click", (event) => {
     // Grab data if filteredList is undefined
     const list = filteredList || data;
     showPage(list, pageNumber);
+  } else {
+    // Did not reach a button node while traversing towards root
+    const misclick = document.querySelector(".misclick");
+    const misclickHtml = `
+      <div class="misclick-container">
+        <div class="misclick warning long">
+          <img class="warning-icon" src="./assets/img/warning.svg" alt="warning icon">
+          <div class="warning-content">
+            <p class="warning-title">Oops!</p>
+            <p class="warning-body small">Button nodes not found.</p>
+          </div>
+          <button class="warning-close">&#x2715</button>
+        </div>
+        <div class="backdrop"></div>
+      </div>
+    `;
+    if (!misclick) {
+      document.body.insertAdjacentHTML("beforeend", misclickHtml);
+
+      // Backdrop click listener to close a warning without clicking the warning
+      const backdrop = document.querySelector(".backdrop");
+      backdrop.addEventListener("click", (event) => {
+        document.querySelector(".misclick-container").remove();
+      });
+
+      // Warning close button listener
+      const closeBtn = document.querySelector(".warning-close");
+      closeBtn.addEventListener("click", (event) => {
+        document.querySelector(".misclick-container").remove();
+      });
+
+    } else {
+      misclick.remove();
+      document.body.insertAdjacentHTML("beforeend", misclickHtml);
+    }
   }
 });
 
