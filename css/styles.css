@@ -404,7 +404,7 @@ header h2 {
 }
 
 .highlight {
-  background-color: hsl(30 100% 50% / 0.25);
+  background-color: hsl(50 100% 50% / 0.35);
 }
 
 @keyframes backdrop-bg {
