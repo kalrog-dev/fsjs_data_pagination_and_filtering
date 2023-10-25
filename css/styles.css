@@ -403,6 +403,10 @@ header h2 {
   z-index: 9;
 }
 
+.highlight {
+  background-color: hsl(30 100% 50% / 0.25);
+}
+
 @keyframes backdrop-bg {
   100% {
     background-color: hsl(0 0% 8% / 0.25);

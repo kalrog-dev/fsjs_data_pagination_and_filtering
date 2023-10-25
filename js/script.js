@@ -8,6 +8,7 @@ const itemsPerPage = 9;
 const linkList = document.querySelector(".link-list");
 let showNoMatch = false;
 let filteredList;
+let highlightedNamesArr = [];
 
 // Build html to inject and display 9 student cards per page
 function showPage(list, page) {
@@ -19,11 +20,12 @@ function showPage(list, page) {
   
   list.forEach((student, index) => {
     if (index >= firstIndex && index <= lastIndex) {
+      const fullName = highlightedNamesArr[index] || `${student.name.first} ${student.name.last}`;
       html += 
         `<li class="student-item cf">
           <div class="student-details">
             <img class="avatar" src=${student.picture.large} alt="Profile Picture">
-            <h3>${student.name.first} ${student.name.last}</h3>
+            <h3>${fullName}</h3>
             <span class="email">${student.email}</span>
           </div>
           <div class="joined-details">
@@ -118,8 +120,22 @@ function getStudentsByName() {
   const input = searchField.value.toLowerCase();
   filteredList = data.filter(student => {
     const fullName = `${student.name.first} ${student.name.last}`.toLowerCase();
-    return fullName.includes(input) ? true : false;
+    return fullName.includes(input);
   });
+
+  // Replace name's string matching part with the same text in a highlighted span element 
+  highlightedNamesArr = [];
+  filteredList.forEach(student => {
+    const input = searchField.value.toLowerCase();
+    const fullName = `${student.name.first} ${student.name.last}`;
+    const fullNameLC = fullName.toLowerCase()
+    const matchingPart = fullName.substring(fullNameLC.indexOf(input), fullNameLC.indexOf(input) + input.length);
+    const highlightedMatch = `<span class="highlight">${matchingPart}</span>`;
+    const highlightedFullName = fullName.replace(matchingPart, highlightedMatch);
+    highlightedNamesArr.push(highlightedFullName);
+  });
+
+  // Display student list and pagination buttons
   showPageAndPagination(filteredList);
 
   // If no matches found, display a warning message
