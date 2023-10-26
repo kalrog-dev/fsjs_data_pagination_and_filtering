@@ -65,42 +65,47 @@ linkList.addEventListener("click", (event) => {
     // Grab data if filteredList is undefined
     const list = filteredList || data;
     showPage(list, pageNumber);
-  } else {
-    // Did not reach a button node while traversing towards root
-    const misclick = document.querySelector(".misclick");
-    const misclickHtml = `
-      <div class="misclick-container">
-        <div class="misclick info">
-          <img class="info-icon" src="./assets/img/info.svg" alt="info icon">
-          <div class="info-content">
-            <p class="info-title">Info</p>
-            <p class="info-body">Button nodes not found</p>
-          </div>
-          <button class="info-close">&#x2715</button>
-        </div>
-        <div class="backdrop"></div>
-      </div>
-    `;
-    if (!misclick) {
-      document.body.insertAdjacentHTML("beforeend", misclickHtml);
-
-      // Backdrop click listener to close an info without clicking the info
-      const backdrop = document.querySelector(".backdrop");
-      backdrop.addEventListener("click", (event) => {
-        document.querySelector(".misclick-container").remove();
-      });
-
-      // Info close button listener
-      const closeBtn = document.querySelector(".info-close");
-      closeBtn.addEventListener("click", (event) => {
-        document.querySelector(".misclick-container").remove();
-      });
-
-    } else {
-      misclick.remove();
-      document.body.insertAdjacentHTML("beforeend", misclickHtml);
-    }
   }
+  /* 
+    This section adds an extra modal but is commented out
+    to be on the safe side and meeting a project requirement.
+  */ 
+  // else {
+  //   // Did not reach a button node while traversing towards root
+  //   const misclick = document.querySelector(".misclick");
+  //   const misclickHtml = `
+  //     <div class="misclick-container">
+  //       <div class="misclick info">
+  //         <img class="info-icon" src="./assets/img/info.svg" alt="info icon">
+  //         <div class="info-content">
+  //           <p class="info-title">Info</p>
+  //           <p class="info-body">Button nodes not found</p>
+  //         </div>
+  //         <button class="info-close">&#x2715</button>
+  //       </div>
+  //       <div class="backdrop"></div>
+  //     </div>
+  //   `;
+  //   if (!misclick) {
+  //     document.body.insertAdjacentHTML("beforeend", misclickHtml);
+
+  //     // Backdrop click listener to close an info without clicking the info
+  //     const backdrop = document.querySelector(".backdrop");
+  //     backdrop.addEventListener("click", (event) => {
+  //       document.querySelector(".misclick-container").remove();
+  //     });
+
+  //     // Info close button listener
+  //     const closeBtn = document.querySelector(".info-close");
+  //     closeBtn.addEventListener("click", (event) => {
+  //       document.querySelector(".misclick-container").remove();
+  //     });
+
+  //   } else {
+  //     misclick.remove();
+  //     document.body.insertAdjacentHTML("beforeend", misclickHtml);
+  //   }
+  // }
 });
 
 // Insert html for a search field
