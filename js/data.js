@@ -4,7 +4,7 @@ FSJS Project 2 - Data Pagination and Filtering
 */
 
 // Array of student objects
-const data = [
+const oldData = [
   {
     name: {
       title: "Miss",

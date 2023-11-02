@@ -4,11 +4,32 @@ FSJS Project 2 - Data Pagination and Filtering
 */
 
 // Global variables
+const data = [];
 const itemsPerPage = 9;
 const linkList = document.querySelector(".link-list");
 let showNoMatch = false;
 let filteredList;
 let highlightedNamesArr = [];
+
+// Fetch data from an API
+const url = `https://randomuser.me/api/?results=42&inc=name, picture, email, dob &noinfo &nat=US`;
+fetch(url)
+    .then(res => res.json())
+    .then(res => res.results)
+    .then(extractData)
+    .catch(err => console.log(err));
+
+// Extract student info by destructuring the fetched data
+function extractData(fetchedData) {
+  fetchedData.forEach(student => {
+    const { name: { first, last }, email, dob: { date }, picture: { large: img } } = student;
+    const dob = /\d{4}-\d{2}-\d{2}/.exec(date)[0];
+    data.push({name: `${first} ${last}`, email, dob, img});
+  });
+  // Display unfiltered student list and pagination buttons
+  console.log(data);
+  showPageAndPagination(data);
+}
 
 // Build html to inject and display 9 student cards per page
 function showPage(list, page) {
@@ -19,17 +40,18 @@ function showPage(list, page) {
   let html = "";
   
   list.forEach((student, index) => {
+    const { name, email, img, dob } = student;
     if (index >= firstIndex && index <= lastIndex) {
-      const fullName = highlightedNamesArr[index] || `${student.name.first} ${student.name.last}`;
+      const fullName = highlightedNamesArr[index] || name;
       html += 
         `<li class="student-item cf">
           <div class="student-details">
-            <img class="avatar" src=${student.picture.large} alt="Profile Picture">
+            <img class="avatar" src=${img} alt="Profile Picture">
             <h3>${fullName}</h3>
-            <span class="email">${student.email}</span>
+            <span class="email">${email}</span>
           </div>
           <div class="joined-details">
-            <span class="date">Joined ${student.registered.date}</span>
+            <span class="date">Born ${dob}</span>
           </div>
         </li>`
     }
@@ -52,9 +74,6 @@ function addPagination(list) {
   const firstBtn = document.querySelector(".pagination button");
   firstBtn.classList.add("active");
 }
-
-// Display unfiltered student list and pagination buttons
-showPageAndPagination(data);
 
 // Listener for pagination button clicks
 linkList.addEventListener("click", (event) => {
@@ -124,15 +143,16 @@ searchField.addEventListener("input", getStudentsByName);
 function getStudentsByName() {
   const input = searchField.value.toLowerCase();
   filteredList = data.filter(student => {
-    const fullName = `${student.name.first} ${student.name.last}`.toLowerCase();
-    return fullName.includes(input);
+    const { name } = student;
+    return name.toLowerCase().includes(input);
   });
 
   // Replace name's string matching part with the same text in a highlighted span element 
   highlightedNamesArr = [];
   filteredList.forEach(student => {
+    const { name } = student;
     const input = searchField.value.toLowerCase();
-    const fullName = `${student.name.first} ${student.name.last}`;
+    const fullName = name;
     const fullNameLC = fullName.toLowerCase()
     const matchingPart = fullName.substring(fullNameLC.indexOf(input), fullNameLC.indexOf(input) + input.length);
     const highlightedMatch = `<span class="highlight">${matchingPart}</span>`;
