@@ -270,10 +270,6 @@ header h2 {
   text-align: center;
 }
 
-.pagination:hover {
-  cursor: not-allowed;
-}
-
 .pagination li {
   display: inline;
   padding: 0 3px;
