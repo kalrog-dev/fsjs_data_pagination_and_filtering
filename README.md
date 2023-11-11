@@ -5,8 +5,9 @@ This is my project 2 solution in the Treehouse FSJS techdegree. Below is a list 
 | Extra features            | Description                                                 |
 | :------------------------ | :---------------------------------------------------------- |
 | Random user API           | Fetch student info from an API instead of using the data.js |
-| Hightlight search matches | Style the name parts matching the search input              |
-| Animate content           | Add many clip-path animations and transitions               |
+| Filter and hightlight     | Search students by name and highlight the matches           |
+| Data pagination           | Display the filtered results with pagination                |
+| Custom animations         | Add many clip-path animations and transitions               |
 
 Preview: 
 ![Data Pagination and Filtering](./assets/img/fsjs_data_pagination_and_filtering_.png)
