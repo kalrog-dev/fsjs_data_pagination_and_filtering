@@ -17,7 +17,7 @@ fetch(url)
     .then(res => res.json())
     .then(res => res.results)
     .then(extractData)
-    .catch(err => console.log(err));
+    .catch(err => alert(err));
 
 // Extract student info by destructuring the fetched data
 function extractData(fetchedData) {
@@ -27,7 +27,6 @@ function extractData(fetchedData) {
     data.push({name: `${first} ${last}`, email, dob, img});
   });
   // Display unfiltered student list and pagination buttons
-  console.log(data);
   showPageAndPagination(data);
 }
 
@@ -85,46 +84,6 @@ linkList.addEventListener("click", (event) => {
     const list = filteredList || data;
     showPage(list, pageNumber);
   }
-  /* 
-    This section adds an extra modal but is commented out
-    to be on the safe side and meeting a project requirement.
-  */ 
-  // else {
-  //   // Did not reach a button node while traversing towards root
-  //   const misclick = document.querySelector(".misclick");
-  //   const misclickHtml = `
-  //     <div class="misclick-container">
-  //       <div class="misclick info">
-  //         <img class="info-icon" src="./assets/img/info.svg" alt="info icon">
-  //         <div class="info-content">
-  //           <p class="info-title">Info</p>
-  //           <p class="info-body">Button nodes not found</p>
-  //         </div>
-  //         <button class="info-close">&#x2715</button>
-  //       </div>
-  //       <div class="backdrop"></div>
-  //     </div>
-  //   `;
-  //   if (!misclick) {
-  //     document.body.insertAdjacentHTML("beforeend", misclickHtml);
-
-  //     // Backdrop click listener to close an info without clicking the info
-  //     const backdrop = document.querySelector(".backdrop");
-  //     backdrop.addEventListener("click", (event) => {
-  //       document.querySelector(".misclick-container").remove();
-  //     });
-
-  //     // Info close button listener
-  //     const closeBtn = document.querySelector(".info-close");
-  //     closeBtn.addEventListener("click", (event) => {
-  //       document.querySelector(".misclick-container").remove();
-  //     });
-
-  //   } else {
-  //     misclick.remove();
-  //     document.body.insertAdjacentHTML("beforeend", misclickHtml);
-  //   }
-  // }
 });
 
 // Insert html for a search field
