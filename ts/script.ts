@@ -88,16 +88,17 @@ function addPagination(list) {
   }
   linkList.innerHTML = html;
 
-  const firstBtn = document.querySelector(".pagination button");
+  const firstBtn = document.querySelector(".pagination button") as HTMLButtonElement;
   firstBtn.classList.add("active");
 }
 
 // Listener for pagination button clicks.
-linkList.addEventListener("click", ({ target }) => {
+linkList.addEventListener("click", (event) => {
+  const target = event.target as HTMLButtonElement;
   if (target.closest("button")) {
-    document.querySelector(".active").classList.remove("active");
+    document.querySelector(".active")?.classList.remove("active");
     target.classList.add("active");
-    const pageNumber = parseInt(target.textContent);
+    const pageNumber = parseInt(target.textContent!);
     // Default to data if filteredList is undefined
     const list = filteredList || data;
     showPage(list, pageNumber);
@@ -111,14 +112,14 @@ const htmlSearch =
     <input id="search" placeholder="Search by name...">
     <button type="button"><img src="./assets/img/icn-search.svg" alt="Search icon"></button>
   </label>`;
-const header = document.querySelector(".header");
+const header = document.querySelector(".header") as HTMLElement;
 header.insertAdjacentHTML("beforeend", htmlSearch);
 
 // Filter student list.
-const searchField = document.getElementById("search");
+const searchField = document.getElementById("search") as HTMLInputElement;
 searchField.addEventListener("input", getStudentsByName);
-function getStudentsByName() {
-  const input = searchField.value.toLowerCase();
+function getStudentsByName(): void {
+  const input: string = searchField.value.toLowerCase();
   filteredList = data.filter(student => {
     const { name } = student;
     return name.toLowerCase().includes(input);
@@ -128,11 +129,11 @@ function getStudentsByName() {
   highlightedNamesArr = [];
   filteredList.forEach(student => {
     const { name } = student;
-    const input = searchField.value.toLowerCase();
-    const fullNameLC = name.toLowerCase()
-    const matchingPart = name.substring(fullNameLC.indexOf(input), fullNameLC.indexOf(input) + input.length);
-    const highlightedMatch = `<span class="highlight">${matchingPart}</span>`;
-    const highlightedFullName = name.replace(matchingPart, highlightedMatch);
+    const input: string = searchField.value.toLowerCase();
+    const fullNameLC: string = name.toLowerCase()
+    const matchingPart: string = name.substring(fullNameLC.indexOf(input), fullNameLC.indexOf(input) + input.length);
+    const highlightedMatch: string = `<span class="highlight">${matchingPart}</span>`;
+    const highlightedFullName: string = name.replace(matchingPart, highlightedMatch);
     highlightedNamesArr.push(highlightedFullName);
   });
 
@@ -151,20 +152,20 @@ function getStudentsByName() {
         <button class="warning-close">&#x2715</button>
       </div>`;
     if (!showNoMatch) {
-      document.querySelector(".header").insertAdjacentHTML("afterend", msg);
+      document.querySelector(".header")?.insertAdjacentHTML("afterend", msg);
       showNoMatch = true;
 
       // Warning close button listener.
-      const closeBtn = document.querySelector(".warning-close");
+      const closeBtn = document.querySelector(".warning-close") as HTMLButtonElement;
       closeBtn.addEventListener("click", () => {
-        document.querySelector(".warning").remove();
+        document.querySelector(".warning")?.remove();
         showNoMatch = false;
       });
     }
   } 
   // If matches found, remove the warning.
   else if (showNoMatch) {
-    const warning = document.querySelector(".warning");
+    const warning = document.querySelector(".warning") as HTMLDivElement;
     warning.remove();
     showNoMatch = false;
   }
@@ -180,5 +181,5 @@ function showPageAndPagination(list) {
 setTimeout(searchFocus, 1600);
 function searchFocus() {
   searchField.focus();
-  document.querySelector(".student-search").classList.add("js-focus-anim");
+  document.querySelector(".student-search")?.classList.add("js-focus-anim");
 }
