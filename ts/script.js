@@ -1,11 +1,10 @@
 "use strict";
 // Global variables.
-const data = [];
 const itemsPerPage = 9;
-const linkList = document.querySelector(".link-list");
-let showNoMatch = false;
+const data = [];
 let filteredList;
 let highlightedNamesArr = [];
+let showNoMatch = false;
 // Fetch data from an API.
 const url = `https://randomuser.me/api/?results=42&inc=name, picture, email, dob &noinfo &nat=US`;
 fetch(url)
@@ -49,6 +48,8 @@ function showPage(list, page) {
     });
     studentList.innerHTML = html;
 }
+// List with pagination buttons.
+const linkList = document.querySelector(".link-list");
 // Build html to inject and display pagination buttons.
 function addPagination(list) {
     linkList.innerHTML = "";
@@ -90,13 +91,13 @@ searchField.addEventListener("input", getStudentsByName);
 function getStudentsByName() {
     var _a;
     const input = searchField.value.toLowerCase();
-    filteredList = data.filter(student => {
+    filteredList = data.filter((student) => {
         const { name } = student;
         return name.toLowerCase().includes(input);
     });
     // Replace name's string matching part with the same text in a highlighted span element.
     highlightedNamesArr = [];
-    filteredList.forEach(student => {
+    filteredList.forEach((student) => {
         const { name } = student;
         const input = searchField.value.toLowerCase();
         const fullNameLC = name.toLowerCase();
