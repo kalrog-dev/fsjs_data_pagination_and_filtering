@@ -6,6 +6,21 @@ interface StudentData {
   img: string
 }
 
+// Types of destructured properties from the fetched data.
+interface DestructuredProps {
+  name: {
+    first: string,
+    last: string
+  },
+  email: string,
+  dob: {
+    date: string
+  },
+  picture: {
+    large: string
+  }
+}
+
 // Global variables.
 const data: Readonly<StudentData>[] = [];
 const itemsPerPage: number = 9;
@@ -25,8 +40,8 @@ fetch(url)
 // Extract student info by destructuring the fetched data.
 function extractData(fetchedData): void {
   fetchedData.forEach(student => {
-    const { name: { first, last }, email, dob: { date }, picture: { large: img } } = student;
-    const dob = /\d{4}-\d{2}-\d{2}/.exec(date)![0];
+    const { name: { first, last }, email, dob: { date }, picture: { large: img } }: DestructuredProps = student;
+    const dob: string = /\d{4}-\d{2}-\d{2}/.exec(date)![0];
     data.push({name: `${first} ${last}`, email, dob, img});
   });
   // Display unfiltered student list and pagination buttons.
