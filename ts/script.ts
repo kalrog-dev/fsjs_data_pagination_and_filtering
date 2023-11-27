@@ -1,19 +1,21 @@
-/**
- * @file Displays and filters data with pagination.
- * @author Michal Veselka
- * {@link https://github.com/kalrog-dev}
- */
+// Type of each student's info.
+interface StudentData {
+  name: string,
+  email: string,
+  dob: string,
+  img: string
+}
 
 // Global variables.
-const data = [];
-const itemsPerPage = 9;
-const linkList = document.querySelector(".link-list");
-let showNoMatch = false;
-let filteredList;
-let highlightedNamesArr = [];
+const data: Readonly<StudentData>[] = [];
+const itemsPerPage: number = 9;
+const linkList = document.querySelector(".link-list") as HTMLUListElement;
+let showNoMatch: boolean = false;
+let filteredList: Readonly<StudentData>[];
+let highlightedNamesArr: string[] = [];
 
 // Fetch data from an API.
-const url = `https://randomuser.me/api/?results=42&inc=name, picture, email, dob &noinfo &nat=US`;
+const url: string = `https://randomuser.me/api/?results=42&inc=name, picture, email, dob &noinfo &nat=US`;
 fetch(url)
     .then(res => res.json())
     .then(res => res.results)
@@ -21,10 +23,10 @@ fetch(url)
     .catch(err => alert(err));
 
 // Extract student info by destructuring the fetched data.
-function extractData(fetchedData) {
+function extractData(fetchedData): void {
   fetchedData.forEach(student => {
     const { name: { first, last }, email, dob: { date }, picture: { large: img } } = student;
-    const dob = /\d{4}-\d{2}-\d{2}/.exec(date)[0];
+    const dob = /\d{4}-\d{2}-\d{2}/.exec(date)![0];
     data.push({name: `${first} ${last}`, email, dob, img});
   });
   // Display unfiltered student list and pagination buttons.
@@ -32,12 +34,12 @@ function extractData(fetchedData) {
 }
 
 // Build html to inject and display 9 student cards per page.
-function showPage(list, page) {
-  const firstIndex = (page * itemsPerPage) - itemsPerPage;
-  const lastIndex = (page * itemsPerPage) - 1;
-  const studentList = document.querySelector(".student-list");
+function showPage(list: StudentData[], page: number): void {
+  const firstIndex: number = (page * itemsPerPage) - itemsPerPage;
+  const lastIndex: number = (page * itemsPerPage) - 1;
+  const studentList = document.querySelector(".student-list") as HTMLUListElement;
   studentList.innerHTML = "";
-  let html = "";
+  let html: string = "";
   
   list.forEach((student, index) => {
     const { name, email, img, dob } = student;
