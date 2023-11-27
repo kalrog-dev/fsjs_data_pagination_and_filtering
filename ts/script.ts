@@ -7,7 +7,7 @@ interface StudentData {
 }
 
 // Types of destructured properties from the fetched data.
-interface DestructuredProps {
+interface RawStudentData {
   name: {
     first: string,
     last: string
@@ -18,7 +18,8 @@ interface DestructuredProps {
   },
   picture: {
     large: string
-  }
+  },
+  [key: string]: any;
 }
 
 // Global variables.
@@ -38,9 +39,9 @@ fetch(url)
     .catch(err => alert(err));
 
 // Extract student info by destructuring the fetched data.
-function extractData(fetchedData): void {
-  fetchedData.forEach(student => {
-    const { name: { first, last }, email, dob: { date }, picture: { large: img } }: DestructuredProps = student;
+function extractData(fetchedData: RawStudentData[]): void {
+  fetchedData.forEach((student) => {
+    const { name: { first, last }, email, dob: { date }, picture: { large: img } } = student;
     const dob: string = /\d{4}-\d{2}-\d{2}/.exec(date)![0];
     data.push({name: `${first} ${last}`, email, dob, img});
   });
@@ -77,7 +78,7 @@ function showPage(list: StudentData[], page: number): void {
 }
 
 // Build html to inject and display pagination buttons.
-function addPagination(list) {
+function addPagination(list: StudentData[]) {
   linkList.innerHTML = "";
   if (list.length === 0) return;    // No search matches.
 
@@ -172,7 +173,7 @@ function getStudentsByName(): void {
 }
 
 // Display everything.
-function showPageAndPagination(list) {
+function showPageAndPagination(list: StudentData[]) {
   showPage(list, 1);
   addPagination(list);
 }
