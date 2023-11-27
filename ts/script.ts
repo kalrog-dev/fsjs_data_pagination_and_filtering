@@ -39,8 +39,8 @@ fetch(url)
     .catch(err => alert(err));
 
 // Extract student info by destructuring the fetched data.
-function extractData(fetchedData: RawStudentData[]): void {
-  fetchedData.forEach((student) => {
+function extractData(fetchedData: Readonly<RawStudentData>[]): void {
+  fetchedData.forEach((student: Readonly<RawStudentData>) => {
     const { name: { first, last }, email, dob: { date }, picture: { large: img } } = student;
     const dob: string = /\d{4}-\d{2}-\d{2}/.exec(date)![0];
     data.push({name: `${first} ${last}`, email, dob, img});
@@ -50,17 +50,17 @@ function extractData(fetchedData: RawStudentData[]): void {
 }
 
 // Build html to inject and display 9 student cards per page.
-function showPage(list: StudentData[], page: number): void {
+function showPage(list: Readonly<StudentData>[], page: number): void {
   const firstIndex: number = (page * itemsPerPage) - itemsPerPage;
   const lastIndex: number = (page * itemsPerPage) - 1;
   const studentList = document.querySelector(".student-list") as HTMLUListElement;
   studentList.innerHTML = "";
   let html: string = "";
   
-  list.forEach((student, index) => {
-    const { name, email, img, dob } = student;
+  list.forEach((student: Readonly<StudentData>, index: number) => {
+    const { name, email, img, dob }: Readonly<StudentData> = student;
     if (index >= firstIndex && index <= lastIndex) {
-      const fullName = highlightedNamesArr[index] || name;
+      const fullName: string = highlightedNamesArr[index] || name;
       html += 
         `<li class="student-item cf">
           <div class="student-details">
@@ -78,7 +78,7 @@ function showPage(list: StudentData[], page: number): void {
 }
 
 // Build html to inject and display pagination buttons.
-function addPagination(list: StudentData[]) {
+function addPagination(list: Readonly<StudentData>[]): void {
   linkList.innerHTML = "";
   if (list.length === 0) return;    // No search matches.
 
@@ -99,7 +99,7 @@ linkList.addEventListener("click", (event) => {
   if (target.closest("button")) {
     document.querySelector(".active")?.classList.remove("active");
     target.classList.add("active");
-    const pageNumber = parseInt(target.textContent!);
+    const pageNumber: number = parseInt(target.textContent!);
     // Default to data if filteredList is undefined
     const list = filteredList || data;
     showPage(list, pageNumber);
@@ -173,7 +173,7 @@ function getStudentsByName(): void {
 }
 
 // Display everything.
-function showPageAndPagination(list: StudentData[]) {
+function showPageAndPagination(list: Readonly<StudentData>[]) {
   showPage(list, 1);
   addPagination(list);
 }
