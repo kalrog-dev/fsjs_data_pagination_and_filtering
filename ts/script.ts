@@ -23,12 +23,11 @@ interface RawStudentData {
 }
 
 // Global variables.
-const data: Readonly<StudentData>[] = [];
 const itemsPerPage: number = 9;
-const linkList = document.querySelector(".link-list") as HTMLUListElement;
-let showNoMatch: boolean = false;
+const data: Readonly<StudentData>[] = [];
 let filteredList: Readonly<StudentData>[];
 let highlightedNamesArr: string[] = [];
+let showNoMatch: boolean = false;
 
 // Fetch data from an API.
 const url: string = `https://randomuser.me/api/?results=42&inc=name, picture, email, dob &noinfo &nat=US`;
@@ -77,13 +76,16 @@ function showPage(list: Readonly<StudentData>[], page: number): void {
   studentList.innerHTML = html;
 }
 
+// List with pagination buttons.
+const linkList = document.querySelector(".link-list") as HTMLUListElement;
+
 // Build html to inject and display pagination buttons.
 function addPagination(list: Readonly<StudentData>[]): void {
   linkList.innerHTML = "";
   if (list.length === 0) return;    // No search matches.
 
   const numberOfPages = Math.ceil( list.length / itemsPerPage );
-  let html = "";
+  let html: string = "";
   for (let i = 1; i <= numberOfPages; i++) {
     html += `<li><button type="button">${i}</button></li>`
   }
@@ -107,7 +109,7 @@ linkList.addEventListener("click", (event) => {
 });
 
 // Insert html for a search field.
-const htmlSearch = 
+const htmlSearch: string = 
   `<label for="search" class="student-search">
     <span>Search by name</span>
     <input id="search" placeholder="Search by name...">
@@ -121,14 +123,14 @@ const searchField = document.getElementById("search") as HTMLInputElement;
 searchField.addEventListener("input", getStudentsByName);
 function getStudentsByName(): void {
   const input: string = searchField.value.toLowerCase();
-  filteredList = data.filter(student => {
+  filteredList = data.filter((student: Readonly<StudentData>) => {
     const { name } = student;
     return name.toLowerCase().includes(input);
   });
 
   // Replace name's string matching part with the same text in a highlighted span element.
   highlightedNamesArr = [];
-  filteredList.forEach(student => {
+  filteredList.forEach((student: Readonly<StudentData>) => {
     const { name } = student;
     const input: string = searchField.value.toLowerCase();
     const fullNameLC: string = name.toLowerCase()
@@ -143,7 +145,7 @@ function getStudentsByName(): void {
 
   // If no matches found, display a warning message.
   if (filteredList.length === 0) {
-    const msg = 
+    const msg: string = 
       `<div class="warning">
         <img class="warning-icon" src="./assets/img/warning.svg" alt="warning icon">
         <div class="warning-content">
@@ -173,14 +175,14 @@ function getStudentsByName(): void {
 }
 
 // Display everything.
-function showPageAndPagination(list: Readonly<StudentData>[]) {
+function showPageAndPagination(list: Readonly<StudentData>[]): void {
   showPage(list, 1);
   addPagination(list);
 }
 
 // Search field auto-focus on load.
 setTimeout(searchFocus, 1600);
-function searchFocus() {
+function searchFocus(): void {
   searchField.focus();
   document.querySelector(".student-search")?.classList.add("js-focus-anim");
 }
