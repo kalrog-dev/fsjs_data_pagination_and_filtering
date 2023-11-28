@@ -8,10 +8,31 @@ let showNoMatch = false;
 // Fetch data from an API.
 const url = `https://randomuser.me/api/?results=42&inc=name, picture, email, dob &noinfo &nat=US`;
 fetch(url)
-    .then(res => res.json())
+    .then(res => {
+    if (res.ok) {
+        throw Error("Could not fetch the resource");
+    }
+    return res.json();
+})
     .then(res => res.results)
     .then(extractData)
-    .catch(err => alert(err));
+    .catch(err => {
+    var _a;
+    // Warning message.
+    const msg = `<div class="warning">
+        <img class="warning-icon" src="./assets/img/warning.svg" alt="warning icon">
+        <div class="warning-content">
+          <p class="warning-title">Oops!</p>
+          <p class="warning-msg">${err.message}</p>
+        </div>
+        <button class="warning-close">&#x2715</button>
+      </div>`;
+    // Insert the warning.
+    (_a = document.querySelector(".header")) === null || _a === void 0 ? void 0 : _a.insertAdjacentHTML("afterend", msg);
+    // Warning close button listener.
+    const closeBtn = document.querySelector(".warning-close");
+    closeBtn.addEventListener("click", () => { var _a; return (_a = document.querySelector(".warning")) === null || _a === void 0 ? void 0 : _a.remove(); });
+});
 // Extract student info by destructuring the fetched data.
 function extractData(fetchedData) {
     fetchedData.forEach((student) => {

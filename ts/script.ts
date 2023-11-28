@@ -32,10 +32,33 @@ let showNoMatch: boolean = false;
 // Fetch data from an API.
 const url: string = `https://randomuser.me/api/?results=42&inc=name, picture, email, dob &noinfo &nat=US`;
 fetch(url)
-    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        throw Error("Could not fetch the resource");
+      }
+      return res.json();
+    })
     .then(res => res.results)
     .then(extractData)
-    .catch(err => alert(err));
+    .catch(err => {
+      // Warning message.
+      const msg: string = 
+      `<div class="warning">
+        <img class="warning-icon" src="./assets/img/warning.svg" alt="warning icon">
+        <div class="warning-content">
+          <p class="warning-title">Oops!</p>
+          <p class="warning-msg">${err.message}</p>
+        </div>
+        <button class="warning-close">&#x2715</button>
+      </div>`;
+
+      // Insert the warning.
+      document.querySelector(".header")?.insertAdjacentHTML("afterend", msg);
+
+      // Warning close button listener.
+      const closeBtn = document.querySelector(".warning-close") as HTMLButtonElement;
+      closeBtn.addEventListener("click", () => document.querySelector(".warning")?.remove());
+    });
 
 // Extract student info by destructuring the fetched data.
 function extractData(fetchedData: Readonly<RawStudentData>[]): void {
