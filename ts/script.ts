@@ -1,4 +1,4 @@
-// Type of each student's info.
+// Types of the selected information of each student.
 interface StudentData {
   name: string,
   email: string,
@@ -6,7 +6,7 @@ interface StudentData {
   img: string
 }
 
-// Types of destructured properties from the fetched data.
+// Types of destructured and other properties from the fetched student data.
 interface RawStudentData {
   name: {
     first: string,
@@ -29,7 +29,7 @@ let filteredList: Readonly<StudentData>[];
 let highlightedNamesArr: string[] = [];
 let showNoMatch: boolean = false;
 
-// Fetch data from an API.
+// Fetch students' data from an API.
 const url: string = `https://randomuser.me/api/?results=42&inc=name, picture, email, dob &noinfo &nat=US`;
 fetch(url)
   .then(res => {
@@ -41,17 +41,17 @@ fetch(url)
   .then(res => res.results)
   .then(extractData)
   .catch(err => {
-    // Display a warning.
+    // Display a modal with an error message.
     displayWarning(err.message);
 
-    // Warning close button listener.
+    // Close button click listener for the modal.
     const closeBtn = document.querySelector(".warning-close") as HTMLButtonElement;
     closeBtn.addEventListener("click", () => document.querySelector(".warning")?.remove());
   });
 
-// Show a warning modal with a custom message.
+// Insert a modal into the document with a specified message.
 function displayWarning(msg: string): void {
-  // Warning message.
+  // Warning modal.
   const warning: string = 
   `<div class="warning">
     <img class="warning-icon" src="./assets/img/warning.svg" alt="warning icon">
@@ -62,7 +62,7 @@ function displayWarning(msg: string): void {
     <button class="warning-close">&#x2715</button>
   </div>`;
 
-  // Insert the warning.
+  // Insert the modal.
   document.querySelector(".header")?.insertAdjacentHTML("afterend", warning);
 }
 
@@ -73,7 +73,7 @@ function extractData(fetchedData: Readonly<RawStudentData>[]): void {
     const dob: string = /\d{4}-\d{2}-\d{2}/.exec(date)![0];
     data.push({name: `${first} ${last}`, email, dob, img});
   });
-  // Display unfiltered student list and pagination buttons.
+  // Display an unfiltered student list and pagination buttons.
   showPageAndPagination(data);
 }
 
@@ -131,7 +131,7 @@ linkList.addEventListener("click", (event) => {
     document.querySelector(".active")?.classList.remove("active");
     target.classList.add("active");
     const pageNumber: number = parseInt(target.textContent!);
-    // Default to data if filteredList is undefined
+    // Default to data if the filteredList is undefined
     const list = filteredList || data;
     showPage(list, pageNumber);
   }
@@ -200,7 +200,7 @@ function showPageAndPagination(list: Readonly<StudentData>[]): void {
   addPagination(list);
 }
 
-// Search field auto-focus on load.
+// Search field auto-focus and a focus animation on load.
 setTimeout(searchFocus, 1600);
 function searchFocus(): void {
   searchField.focus();

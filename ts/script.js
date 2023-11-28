@@ -5,7 +5,7 @@ const data = [];
 let filteredList;
 let highlightedNamesArr = [];
 let showNoMatch = false;
-// Fetch data from an API.
+// Fetch students' data from an API.
 const url = `https://randomuser.me/api/?results=42&inc=name, picture, email, dob &noinfo &nat=US`;
 fetch(url)
     .then(res => {
@@ -17,16 +17,16 @@ fetch(url)
     .then(res => res.results)
     .then(extractData)
     .catch(err => {
-    // Display a warning.
+    // Display a modal with an error message.
     displayWarning(err.message);
-    // Warning close button listener.
+    // Close button click listener for the modal.
     const closeBtn = document.querySelector(".warning-close");
     closeBtn.addEventListener("click", () => { var _a; return (_a = document.querySelector(".warning")) === null || _a === void 0 ? void 0 : _a.remove(); });
 });
-// Show a warning modal with a custom message.
+// Insert a modal into the document with a specified message.
 function displayWarning(msg) {
     var _a;
-    // Warning message.
+    // Warning modal.
     const warning = `<div class="warning">
     <img class="warning-icon" src="./assets/img/warning.svg" alt="warning icon">
     <div class="warning-content">
@@ -35,7 +35,7 @@ function displayWarning(msg) {
     </div>
     <button class="warning-close">&#x2715</button>
   </div>`;
-    // Insert the warning.
+    // Insert the modal.
     (_a = document.querySelector(".header")) === null || _a === void 0 ? void 0 : _a.insertAdjacentHTML("afterend", warning);
 }
 // Extract student info by destructuring the fetched data.
@@ -45,7 +45,7 @@ function extractData(fetchedData) {
         const dob = /\d{4}-\d{2}-\d{2}/.exec(date)[0];
         data.push({ name: `${first} ${last}`, email, dob, img });
     });
-    // Display unfiltered student list and pagination buttons.
+    // Display an unfiltered student list and pagination buttons.
     showPageAndPagination(data);
 }
 // Build html to inject and display 9 student cards per page.
@@ -98,7 +98,7 @@ linkList.addEventListener("click", (event) => {
         (_a = document.querySelector(".active")) === null || _a === void 0 ? void 0 : _a.classList.remove("active");
         target.classList.add("active");
         const pageNumber = parseInt(target.textContent);
-        // Default to data if filteredList is undefined
+        // Default to data if the filteredList is undefined
         const list = filteredList || data;
         showPage(list, pageNumber);
     }
@@ -159,7 +159,7 @@ function showPageAndPagination(list) {
     showPage(list, 1);
     addPagination(list);
 }
-// Search field auto-focus on load.
+// Search field auto-focus and a focus animation on load.
 setTimeout(searchFocus, 1600);
 function searchFocus() {
     var _a;
