@@ -1,3 +1,5 @@
+@use 'sass:list';
+
 @font-face {
   font-family: 'Montserrat';
   font-weight: 200;
@@ -93,9 +95,7 @@ header h2 {
   font-weight: 600;
   color: #a6a6a6;
   outline: none;
-  transition-property: border-color;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-in;
+  transition: border-color 0.2s ease-in;
 }
 
 .student-search input:focus {
@@ -111,25 +111,12 @@ header h2 {
   opacity: 1;
 }
 
+$translateX: 0, -14px, 9px, -6px, 0;
 @keyframes focus-anim {
-  0% {
-    transform: translate(0, 0);
-  }
-
-  25% {
-    transform: translate(-14px, 0);
-  }
-
-  50% {
-    transform: translate(9px, 0);
-  }
-
-  75% {
-    transform: translate(-6px, 0);
-  }
-
-  100% {
-    transform: translate(0, 0);
+  @for $i from 1 through 5 {
+    #{($i - 1) * 25%} {
+      transform: translate(list.nth($translateX, $i), 0);
+    }
   }
 }
 

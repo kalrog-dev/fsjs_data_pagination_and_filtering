@@ -88,9 +88,7 @@ header h2 {
   font-weight: 600;
   color: #a6a6a6;
   outline: none;
-  transition-property: border-color;
-  transition-duration: 0.2s;
-  transition-timing-function: ease-in;
+  transition: border-color 0.2s ease-in;
 }
 
 .student-search input:focus {
