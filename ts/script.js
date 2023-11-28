@@ -9,7 +9,7 @@ let showNoMatch = false;
 const url = `https://randomuser.me/api/?results=42&inc=name, picture, email, dob &noinfo &nat=US`;
 fetch(url)
     .then(res => {
-    if (res.ok) {
+    if (!res.ok) {
         throw Error("Could not fetch the resource");
     }
     return res.json();
