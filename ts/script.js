@@ -17,22 +17,27 @@ fetch(url)
     .then(res => res.results)
     .then(extractData)
     .catch(err => {
-    var _a;
-    // Warning message.
-    const msg = `<div class="warning">
-        <img class="warning-icon" src="./assets/img/warning.svg" alt="warning icon">
-        <div class="warning-content">
-          <p class="warning-title">Oops!</p>
-          <p class="warning-msg">${err.message}</p>
-        </div>
-        <button class="warning-close">&#x2715</button>
-      </div>`;
-    // Insert the warning.
-    (_a = document.querySelector(".header")) === null || _a === void 0 ? void 0 : _a.insertAdjacentHTML("afterend", msg);
+    // Display a warning.
+    displayWarning(err.message);
     // Warning close button listener.
     const closeBtn = document.querySelector(".warning-close");
     closeBtn.addEventListener("click", () => { var _a; return (_a = document.querySelector(".warning")) === null || _a === void 0 ? void 0 : _a.remove(); });
 });
+// Show a warning modal with a custom message.
+function displayWarning(msg) {
+    var _a;
+    // Warning message.
+    const warning = `<div class="warning">
+    <img class="warning-icon" src="./assets/img/warning.svg" alt="warning icon">
+    <div class="warning-content">
+      <p class="warning-title">Oops!</p>
+      <p class="warning-msg">${msg}</p>
+    </div>
+    <button class="warning-close">&#x2715</button>
+  </div>`;
+    // Insert the warning.
+    (_a = document.querySelector(".header")) === null || _a === void 0 ? void 0 : _a.insertAdjacentHTML("afterend", warning);
+}
 // Extract student info by destructuring the fetched data.
 function extractData(fetchedData) {
     fetchedData.forEach((student) => {
@@ -110,7 +115,6 @@ header.insertAdjacentHTML("beforeend", htmlSearch);
 const searchField = document.getElementById("search");
 searchField.addEventListener("input", getStudentsByName);
 function getStudentsByName() {
-    var _a;
     const input = searchField.value.toLowerCase();
     filteredList = data.filter((student) => {
         const { name } = student;
@@ -131,16 +135,8 @@ function getStudentsByName() {
     showPageAndPagination(filteredList);
     // If no matches found, display a warning message.
     if (filteredList.length === 0) {
-        const msg = `<div class="warning">
-        <img class="warning-icon" src="./assets/img/warning.svg" alt="warning icon">
-        <div class="warning-content">
-          <p class="warning-title">Oops!</p>
-          <p class="warning-msg">No matches found</p>
-        </div>
-        <button class="warning-close">&#x2715</button>
-      </div>`;
         if (!showNoMatch) {
-            (_a = document.querySelector(".header")) === null || _a === void 0 ? void 0 : _a.insertAdjacentHTML("afterend", msg);
+            displayWarning("No matches found");
             showNoMatch = true;
             // Warning close button listener.
             const closeBtn = document.querySelector(".warning-close");
