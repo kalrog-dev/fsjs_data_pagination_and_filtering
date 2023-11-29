@@ -146,6 +146,7 @@ $translateX: 0, -14px, 9px, -6px, 0;
   -webkit-transition: box-shadow .3s ease;
   transition: box-shadow .3s ease, transform 0.4s;
   opacity: 0;
+  cursor: pointer;
   animation: show 0.2s ease-in forwards;
   --anim-delay: 0.2s;
   --anim-offset: 0.05s;
@@ -316,6 +317,56 @@ $translateX: 0, -14px, 9px, -6px, 0;
 
 .highlight {
   background-color: hsl(50 100% 50% / 0.35);
+}
+
+#card-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: hsl(0, 0%, 0%, 0);
+  transition: background-color 0.4s;
+  animation: js-card-modal 0.4s ease-in forwards;
+}
+
+@keyframes js-card-modal {
+  100% {
+    background-color: hsl(0, 0%, 0%, 0.25);
+  }
+}
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  top: 40%;
+  margin-inline: auto;
+  width: min(450px, 90%);
+  background-color: white;
+  border-radius: 6px;
+}
+
+.modal-content .close {
+  align-self: flex-end;
+  margin: 0.5em;
+  outline: none;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  background: none;
+  color: hsl(0, 0%, 26%);
+  transition: color 0.1s, border-color 0.45s;
+}
+
+.modal-content .close:hover {
+  color: #1e90ff;
+  border-color: hsl(210, 100%, 56% / 0.75);
+  cursor: pointer;
+}
+
+.modal-content .avatar {
+  width: 150px;
+  height: auto;
 }
 
 @media screen and (min-width: 700px) {
