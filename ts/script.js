@@ -167,6 +167,7 @@ function searchFocus() {
     searchField.focus();
     (_a = document.querySelector(".student-search")) === null || _a === void 0 ? void 0 : _a.classList.add("js-focus-anim");
 }
+// Open or close a card modal.
 (_a = document.querySelector(".student-list")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (event) => {
     const target = event === null || event === void 0 ? void 0 : event.target;
     // If the click event bubbled up from a student card, insert the card modal into the page.

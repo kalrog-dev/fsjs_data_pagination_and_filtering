@@ -207,8 +207,7 @@ function searchFocus(): void {
   document.querySelector(".student-search")?.classList.add("js-focus-anim");
 }
 
-
-
+// Open or close a card modal.
 document.querySelector(".student-list")?.addEventListener("click", (event) => {
   const target = event?.target as HTMLElement;
 
