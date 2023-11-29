@@ -1,10 +1,5 @@
 @font-face {
   font-family: "Montserrat";
-  font-weight: 200;
-  src: url("../assets/fonts/Montserrat-ExtraLight.ttf");
-}
-@font-face {
-  font-family: "Montserrat";
   font-weight: 400;
   src: url("../assets/fonts/Montserrat-Regular.ttf");
 }
