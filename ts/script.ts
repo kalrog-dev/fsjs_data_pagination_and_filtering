@@ -206,3 +206,37 @@ function searchFocus(): void {
   searchField.focus();
   document.querySelector(".student-search")?.classList.add("js-focus-anim");
 }
+
+
+
+document.querySelector(".student-list")?.addEventListener("click", (event) => {
+  const target = event?.target as HTMLElement;
+
+  // If the click event bubbled up from a student card, insert the card modal into the page.
+  if (target.closest(".student-item")) {
+    const targetCard = target.closest(".student-item") as HTMLLIElement;
+    const avatar = targetCard?.querySelector(".avatar") as HTMLImageElement;
+    const avatarSource = avatar.getAttribute("src") as string;
+
+    // Open card modal on click.
+    const cardModalHTML: string = 
+    `<div id="card-modal">
+      <div class="modal-content">
+        <button class="close">&#x2715;</button>
+        <img class="avatar" src="${avatarSource}" alt="Profile picture">
+      </div>
+    </div>`;
+
+    document.body.insertAdjacentHTML("beforeend", cardModalHTML);
+
+    // Close card modal on click.
+    const cardModal = document.getElementById("card-modal") as HTMLDivElement;
+    cardModal.addEventListener("click", (event) => {
+      const target = event?.target as HTMLElement;
+
+      if (target === cardModal || target.closest(".close")) {
+        cardModal.remove();
+      }
+    });
+  }
+})

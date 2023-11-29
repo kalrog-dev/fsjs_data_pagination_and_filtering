@@ -1,4 +1,5 @@
 "use strict";
+var _a;
 // Global variables.
 const itemsPerPage = 9;
 const data = [];
@@ -166,3 +167,28 @@ function searchFocus() {
     searchField.focus();
     (_a = document.querySelector(".student-search")) === null || _a === void 0 ? void 0 : _a.classList.add("js-focus-anim");
 }
+(_a = document.querySelector(".student-list")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", (event) => {
+    const target = event === null || event === void 0 ? void 0 : event.target;
+    // If the click event bubbled up from a student card, insert the card modal into the page.
+    if (target.closest(".student-item")) {
+        const targetCard = target.closest(".student-item");
+        const avatar = targetCard === null || targetCard === void 0 ? void 0 : targetCard.querySelector(".avatar");
+        const avatarSource = avatar.getAttribute("src");
+        // Open card modal on click.
+        const cardModalHTML = `<div id="card-modal">
+      <div class="modal-content">
+        <button class="close">&#x2715;</button>
+        <img class="avatar" src="${avatarSource}" alt="Profile picture">
+      </div>
+    </div>`;
+        document.body.insertAdjacentHTML("beforeend", cardModalHTML);
+        // Close card modal on click.
+        const cardModal = document.getElementById("card-modal");
+        cardModal.addEventListener("click", (event) => {
+            const target = event === null || event === void 0 ? void 0 : event.target;
+            if (target === cardModal || target.closest(".close")) {
+                cardModal.remove();
+            }
+        });
+    }
+});
