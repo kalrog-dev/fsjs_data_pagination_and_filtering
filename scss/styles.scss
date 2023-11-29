@@ -121,7 +121,6 @@ $translateX: 0, -14px, 9px, -6px, 0;
 }
 
 .student-search button {
-  cursor: pointer;
   width: 55px;
   border-radius: 0 4px 4px 0;
   border: 1px solid #1e90ff;
@@ -151,7 +150,7 @@ $translateX: 0, -14px, 9px, -6px, 0;
   background-color: #fff;
   border-radius: 2px;
   -webkit-transition: box-shadow .3s ease;
-  transition: box-shadow .3s ease;
+  transition: box-shadow .3s ease, transform 0.4s;
   opacity: 0;
   animation: show 0.2s ease-in forwards;
   --anim-delay: 0.2s;
@@ -173,6 +172,14 @@ $translateX: 0, -14px, 9px, -6px, 0;
   .student-item:nth-of-type(#{$i}) {
     animation-delay: calc(var(--anim-delay) + var(--anim-offset) * ($i - 1));
   }
+}
+
+.student-list:has(.student-item:hover) .student-item:not(:hover) {
+  transform: scale(0.96);
+}
+
+.student-list .student-item:hover {
+  transform: scale(1.05);
 }
 
 .avatar {

@@ -122,7 +122,6 @@ header h2 {
   }
 }
 .student-search button {
-  cursor: pointer;
   width: 55px;
   border-radius: 0 4px 4px 0;
   border: 1px solid #1e90ff;
@@ -152,7 +151,7 @@ header h2 {
   background-color: #fff;
   border-radius: 2px;
   -webkit-transition: box-shadow 0.3s ease;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, transform 0.4s;
   opacity: 0;
   animation: show 0.2s ease-in forwards;
   --anim-delay: 0.2s;
@@ -202,6 +201,14 @@ header h2 {
 
 .student-item:nth-of-type(9) {
   animation-delay: calc(var(--anim-delay) + var(--anim-offset) * 8);
+}
+
+.student-list:has(.student-item:hover) .student-item:not(:hover) {
+  transform: scale(0.96);
+}
+
+.student-list .student-item:hover {
+  transform: scale(1.05);
 }
 
 .avatar {
