@@ -173,13 +173,16 @@ function searchFocus() {
     // If the click event bubbled up from a student card, insert the card modal into the page.
     if (target.closest(".student-item")) {
         const targetCard = target.closest(".student-item");
-        const avatar = targetCard === null || targetCard === void 0 ? void 0 : targetCard.querySelector(".avatar");
-        const avatarSource = avatar.getAttribute("src");
+        const avatarSource = targetCard === null || targetCard === void 0 ? void 0 : targetCard.querySelector(".avatar").getAttribute("src");
+        const name = targetCard === null || targetCard === void 0 ? void 0 : targetCard.querySelector("h3").textContent;
+        const email = targetCard === null || targetCard === void 0 ? void 0 : targetCard.querySelector(".email").textContent;
         // Open card modal on click.
         const cardModalHTML = `<div id="card-modal">
       <div class="modal-content">
         <button class="close">&#x2715;</button>
         <img class="avatar" src="${avatarSource}" alt="Profile picture">
+        <p class="name">${name}</p>
+        <p class="email">${email}</p>
       </div>
     </div>`;
         document.body.insertAdjacentHTML("beforeend", cardModalHTML);

@@ -214,8 +214,9 @@ document.querySelector(".student-list")?.addEventListener("click", (event) => {
   // If the click event bubbled up from a student card, insert the card modal into the page.
   if (target.closest(".student-item")) {
     const targetCard = target.closest(".student-item") as HTMLLIElement;
-    const avatar = targetCard?.querySelector(".avatar") as HTMLImageElement;
-    const avatarSource = avatar.getAttribute("src") as string;
+    const avatarSource = targetCard?.querySelector(".avatar")!.getAttribute("src") as string;
+    const name = targetCard?.querySelector("h3")!.textContent as string;
+    const email = targetCard?.querySelector(".email")!.textContent as string;
 
     // Open card modal on click.
     const cardModalHTML: string = 
@@ -223,6 +224,8 @@ document.querySelector(".student-list")?.addEventListener("click", (event) => {
       <div class="modal-content">
         <button class="close">&#x2715;</button>
         <img class="avatar" src="${avatarSource}" alt="Profile picture">
+        <p class="name">${name}</p>
+        <p class="email">${email}</p>
       </div>
     </div>`;
 
