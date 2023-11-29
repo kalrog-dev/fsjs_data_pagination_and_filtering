@@ -1,4 +1,4 @@
-// Types of the selected information of each student.
+// Types of the selected information for each student.
 interface StudentData {
   name: string,
   email: string,
